@@ -1,0 +1,47 @@
+{
+  "Spy on Default Bus": {
+    "scope": "javascript,typescript",
+    "prefix": "rx",
+    "body": [
+      "defaultBus.spy(({ type, payload }) => { console.log(type, payload) });",
+      "defaultBus.errors.subscribe(console.error)"
+    ],
+    "description": "Spy on bus events and errors"
+  },
+
+  "Add Default Bus to Window": {
+    "scope": "javascript,typescript",
+    "prefix": "rx",
+    "body": ["Object.assign(window, { defaultBus });"],
+    "description": "Expose the defaultBus on the window object."
+  },
+
+  "Create Bus Listener": {
+    "scope": "javascript,typescript",
+    "prefix": "rx",
+    "body": [
+      "defaultBus.listen${1|(,Queueing(,Blocking(,Switching(|}$2, () => {",
+      "  return $3;",
+      "});"
+    ],
+    "description": "Create a listener on the default bus."
+  },
+
+  "Create Service": {
+    "scope": "javascript,typescript",
+    "prefix": "rx",
+    "body": [
+      "const ${1:service} = create${2|Service(,QueueingService(,BlockingService(,SwitchingService(|}",
+      "  \"$3\", // name",
+      "  () => {}, // return the Promise-or-Observable effect",
+      "  (ACs) => (state = $4, event) => {",
+      "    if (ACs.request.match(event)) {",
+      "       // return modified state",
+      "    }",
+      "    return state;",
+      "  }",
+      ");"
+    ],
+    "description": "Creates a service on the default bus."
+  }
+}
